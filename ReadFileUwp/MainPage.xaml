@@ -28,9 +28,19 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button x:Name="btnJson" Content="Open JSON" Margin="0,136,0,0" VerticalAlignment="Top" Height="104" Width="230" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" Click="btnJson_Click"/>
-        <Button x:Name="btnCsv" Content="Open CSV" Margin="0,332,0,0" VerticalAlignment="Top" Height="104" Width="230" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" Click="btnCsv_Click"/>
-        <Button x:Name="btnXml" Content="Open XML" Margin="0,528,0,0" VerticalAlignment="Top" Height="104" Width="230" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" Click="btnXml_Click"/>
+        <Button x:Name="btnJson" Content="Read .json" Margin="94,504,0,0" VerticalAlignment="Top" Height="47" Width="151" FontSize="24" FontWeight="Bold" Click="btnJson_Click"/>
+        <Button x:Name="btnCsv" Content="Read .csv" Margin="94,566,0,0" VerticalAlignment="Top" Height="47" Width="151" FontSize="24" FontWeight="Bold" Click="btnCsv_Click"/>
+        <Button x:Name="btnXml" Content="Read .xml" Margin="260,504,0,0" VerticalAlignment="Top" Height="47" Width="151" FontSize="24" FontWeight="Bold" Click="btnXml_Click"/>
+        <Button x:Name="btnTxt" Content="Read .txt" Margin="260,566,0,0" VerticalAlignment="Top" Height="47" Width="151" FontSize="24" FontWeight="Bold" Click="btnTxt_Click"/>
+        <Button x:Name="btnCreateJson" Content="Create .json" Margin="94,257,0,0" VerticalAlignment="Top" Height="47" Width="151" FontWeight="Bold" FontSize="24" Click="btnCreateJson_Click"/>
+        <Button x:Name="btnCreateCsv" Content="Create .csv" Margin="94,322,0,0" VerticalAlignment="Top" Height="47" Width="151" FontWeight="Bold" FontSize="24" Click="btnCreateCsv_Click"/>
+        <Button x:Name="btnCreateXml" Content="Create .xml" Margin="260,257,0,0" VerticalAlignment="Top" Height="47" Width="151" FontWeight="Bold" FontSize="24" Click="btnCreateXml_Click"/>
+        <Button x:Name="btnCreateTxt" Content="Create .txt" Margin="260,322,0,0" VerticalAlignment="Top" Height="47" Width="151" FontWeight="Bold" FontSize="24" Click="btnCreateTxt_Click"/>
+        <TextBox x:Name="textBoxFirstName" HorizontalAlignment="Left" Margin="94,70,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="331" PlaceholderText="FirstName"/>
+        <TextBox x:Name="textBoxLastName" HorizontalAlignment="Left" Margin="94,113,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="331" PlaceholderText="LastName"/>
+        <TextBox x:Name="textBoxAge" HorizontalAlignment="Left" Margin="94,156,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="88" PlaceholderText="Age"/>
+        <TextBox x:Name="textBoxCity" HorizontalAlignment="Left" Margin="94,199,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="331" PlaceholderText="City"/>
+
 
     </Grid>
 </Page>
