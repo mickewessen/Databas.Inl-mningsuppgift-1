@@ -13,7 +13,6 @@ namespace SharedLibraries
 
         }
 
-
         public Person(string firstName, string lastName, int age, string city)
         {
             FirstName = firstName;

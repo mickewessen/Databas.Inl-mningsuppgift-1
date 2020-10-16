@@ -13,9 +13,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-
-
-        <ListView x:Name="ListView" Grid.Column="1" Margin="15,70,15,15">
+        <ListView x:Name="ListViewJson" Grid.Column="1" Margin="15,70,15,15">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -26,6 +24,11 @@
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
+        </ListView>
+        <ListView x:Name="ListViewCsv" Grid.Column="1" Margin="15,70,15,15">            
+        </ListView>
+        <ListView x:Name="ListViewTxt" Grid.Column="1" Margin="15,70,15,15">
+            
         </ListView>
 
         <Button x:Name="btnJson" Content="Read .json" Margin="94,504,0,0" VerticalAlignment="Top" Height="47" Width="151" FontSize="24" FontWeight="Bold" Click="btnJson_Click"/>

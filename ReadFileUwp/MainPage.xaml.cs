@@ -53,45 +53,62 @@ namespace ReadFileUwp
 
         private async void btnJson_Click(object sender, RoutedEventArgs e)
         {
-
             var json = new Windows.Storage.Pickers.FileOpenPicker();
             json.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
             json.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
             json.FileTypeFilter.Add(".json");
             Windows.Storage.StorageFile file = await json.PickSingleFileAsync();
-
             string text = await Windows.Storage.FileIO.ReadTextAsync(file);
-
             List<Person> DeserializedProducts = JsonConvert.DeserializeObject<List<Person>>(text);
+            ListViewJson.ItemsSource = DeserializedProducts;
 
-            ListView.ItemsSource = DeserializedProducts;
+        }           //Klar
 
-        }     
 
+        private ObservableCollection<string> CsvRows = new ObservableCollection<string>();
         private async void btnCsv_Click(object sender, RoutedEventArgs e)
         {
-            var csv = new Windows.Storage.Pickers.FileOpenPicker();
-            csv.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
-            csv.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
-            csv.FileTypeFilter.Add(".csv");
 
-            Windows.Storage.StorageFile file = await csv.PickSingleFileAsync();           
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.List;
+            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            picker.FileTypeFilter.Add(".csv");
 
-            string text = await Windows.Storage.FileIO.ReadTextAsync(file);
+            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
 
-            List<Person> persons = new List<Person>();
+            CsvRows.Clear();
 
-            ListView.ItemsSource = persons;
-
-        }
+            using (CsvParse.CsvFileReader csvReader = new CsvParse.CsvFileReader(await file.OpenStreamForReadAsync()))
+            {
+                CsvParse.CsvRow row = new CsvParse.CsvRow();
+                while (csvReader.ReadRow(row))
+                {
+                    string newRow = "";
+                    for (int i = 0; i < row.Count; i++)
+                    {
+                        newRow += row[i] + ",";
+                    }
+                    CsvRows.Add(newRow);
+                }
+                ListViewCsv.ItemsSource = CsvRows;
+            }
+        }           //Klar
 
         private void btnXml_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void btnTxt_Click(object sender, RoutedEventArgs e)
+        private async void btnTxt_Click(object sender, RoutedEventArgs e)
         {
+            FileOpenPicker txt = new FileOpenPicker();
+            txt.ViewMode = PickerViewMode.Thumbnail;
+            txt.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            txt.FileTypeFilter.Add(".txt");
+            Windows.Storage.StorageFile file = await txt.PickSingleFileAsync();
+
+            string text = await Windows.Storage.FileIO.ReadTextAsync(file);
+            ListViewTxt.ItemsSource = text;
 
         }
 
@@ -106,7 +123,6 @@ namespace ReadFileUwp
 
         private void btnCreateJson_Click(object sender, RoutedEventArgs e)
         {
-            JsonService.WriteToFile(@$"D:\persons.json", new Person("Micke", "Wessen", 34, "Orebro"));
         }
 
         private void btnCreateXml_Click(object sender, RoutedEventArgs e)
