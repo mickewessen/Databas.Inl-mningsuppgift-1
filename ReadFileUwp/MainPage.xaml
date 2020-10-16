@@ -28,8 +28,9 @@
         <ListView x:Name="ListViewCsv" Grid.Column="1" Margin="15,70,15,15">            
         </ListView>
         <ListView x:Name="ListViewTxt" Grid.Column="1" Margin="15,70,15,15">
-            
-        </ListView>
+                <TextBlock x:Name="FileText" />
+
+        </ListView>       
 
         <Button x:Name="btnJson" Content="Read .json" Margin="94,504,0,0" VerticalAlignment="Top" Height="47" Width="151" FontSize="24" FontWeight="Bold" Click="btnJson_Click"/>
         <Button x:Name="btnCsv" Content="Read .csv" Margin="94,566,0,0" VerticalAlignment="Top" Height="47" Width="151" FontSize="24" FontWeight="Bold" Click="btnCsv_Click"/>
@@ -42,8 +43,7 @@
         <TextBox x:Name="textBoxFirstName" HorizontalAlignment="Left" Margin="94,70,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="331" PlaceholderText="FirstName"/>
         <TextBox x:Name="textBoxLastName" HorizontalAlignment="Left" Margin="94,113,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="331" PlaceholderText="LastName"/>
         <TextBox x:Name="textBoxAge" HorizontalAlignment="Left" Margin="94,156,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="88" PlaceholderText="Age"/>
-        <TextBox x:Name="textBoxCity" HorizontalAlignment="Left" Margin="94,199,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="331" PlaceholderText="City"/>
-
+        <TextBox x:Name="textBoxCity" HorizontalAlignment="Left" Margin="94,199,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="331" PlaceholderText="City"/>    
 
     </Grid>
 </Page>

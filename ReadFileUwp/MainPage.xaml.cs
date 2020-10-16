@@ -46,10 +46,11 @@ namespace ReadFileUwp
         }
         private async Task WriteTxtFileAsync()
         {
+            var content = (textBoxFirstName.Text, textBoxLastName.Text, textBoxAge.Text, textBoxCity.Text);
             StorageFile file = await storageFolder.GetFileAsync("micke.txt");
-            await FileIO.WriteTextAsync(file, "Detta är min text");
-        }
+            await FileIO.WriteTextAsync(file, Convert.ToString(content));
 
+        }
 
         private async void btnJson_Click(object sender, RoutedEventArgs e)
         {
@@ -57,10 +58,12 @@ namespace ReadFileUwp
             json.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
             json.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
             json.FileTypeFilter.Add(".json");
+
+
             Windows.Storage.StorageFile file = await json.PickSingleFileAsync();
             string text = await Windows.Storage.FileIO.ReadTextAsync(file);
-            List<Person> DeserializedProducts = JsonConvert.DeserializeObject<List<Person>>(text);
-            ListViewJson.ItemsSource = DeserializedProducts;
+            List<Person> persons = JsonConvert.DeserializeObject<List<Person>>(text);
+            ListViewJson.ItemsSource = persons;
 
         }           //Klar
 
@@ -94,10 +97,25 @@ namespace ReadFileUwp
             }
         }           //Klar
 
-        private void btnXml_Click(object sender, RoutedEventArgs e)
+        private async void btnXml_Click(object sender, RoutedEventArgs e)
         {
+            FileOpenPicker Xml = new FileOpenPicker();
+            Xml.ViewMode = PickerViewMode.Thumbnail;
+            Xml.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            Xml.FileTypeFilter.Add(".xml");
+            Windows.Storage.StorageFile file = await Xml.PickSingleFileAsync();
 
-        }
+            if (file != null)
+            {
+                var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
+                using (StreamReader reader = new StreamReader(stream.AsStream()))
+                {
+                    FileText.Text = reader.ReadToEnd();
+                }
+
+            }
+
+        }           //Klar typ
 
         private async void btnTxt_Click(object sender, RoutedEventArgs e)
         {
@@ -107,18 +125,22 @@ namespace ReadFileUwp
             txt.FileTypeFilter.Add(".txt");
             Windows.Storage.StorageFile file = await txt.PickSingleFileAsync();
 
-            string text = await Windows.Storage.FileIO.ReadTextAsync(file);
-            ListViewTxt.ItemsSource = text;
+            if (file != null)
+            {
+                var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read); 
+                using (StreamReader reader = new StreamReader(stream.AsStream()))
+                {
+                    FileText.Text = reader.ReadToEnd();
+                }
 
-        }
-
+            }
+        }           //Klar typ
 
 
         private void btnCreateTxt_Click(object sender, RoutedEventArgs e)
         {
             CreateTxtFileAsync().GetAwaiter();
             WriteTxtFileAsync().GetAwaiter();
-
         }
 
         private void btnCreateJson_Click(object sender, RoutedEventArgs e)
@@ -131,6 +153,7 @@ namespace ReadFileUwp
 
         private void btnCreateCsv_Click(object sender, RoutedEventArgs e)
         {
+
         }
     }
 }
