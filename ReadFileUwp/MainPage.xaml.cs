@@ -48,7 +48,7 @@ namespace ReadFileUwp
         {
             var content = (textBoxFirstName.Text, textBoxLastName.Text, textBoxAge.Text, textBoxCity.Text);
             StorageFile file = await storageFolder.GetFileAsync("micke.txt");
-            await FileIO.WriteTextAsync(file, Convert.ToString(content));
+            await FileIO.WriteTextAsync(file, Convert.ToString(content)); 
 
         }
 
