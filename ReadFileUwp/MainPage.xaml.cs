@@ -23,6 +23,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Xml.Linq;
 using ReadFileUwp.Models;
+using Windows.ApplicationModel;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -51,7 +52,12 @@ namespace ReadFileUwp
         }
         private async Task WriteTxtFileAsync()
         {
-            var content = (textBoxFirstName.Text, textBoxLastName.Text, textBoxAge.Text, textBoxCity.Text);
+            var content = (
+                textBoxFirstName.Text,
+                textBoxLastName.Text, 
+                textBoxAge.Text, 
+                textBoxCity.Text
+                );
             StorageFile file = await storageFolder.GetFileAsync("micke.txt");
             await FileIO.WriteTextAsync(file, Convert.ToString(content)); 
 
@@ -124,7 +130,24 @@ namespace ReadFileUwp
 
         private async void btnXml_Click(object sender, RoutedEventArgs e)
         {
+            FileOpenPicker Xml = new FileOpenPicker();
+            Xml.ViewMode = PickerViewMode.Thumbnail;
+            Xml.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            Xml.FileTypeFilter.Add(".xml");
 
+            StorageFile file = await Xml.PickSingleFileAsync();
+
+            string XMLFilePath = Path.Combine(Package.Current.InstalledLocation.Path, "person.xml");
+            XDocument loadedData = XDocument.Load(XMLFilePath);
+            var data = from query in loadedData.Descendants("person")
+                       select new Person
+                       {
+                           FirstName = (string)query.Element("FirstName"),
+                           LastName = (string)query.Element("LastName"),
+                           Age = (int)query.Element("Age"),
+                           City = (string)query.Element("City"),
+                       };
+            ListViewXml.ItemsSource = data;
 
 
             //FileOpenPicker Xml = new FileOpenPicker();
@@ -134,16 +157,8 @@ namespace ReadFileUwp
 
             //StorageFile file = await Xml.PickSingleFileAsync();
 
-            //using (var xlmstream = await file.OpenStreamForReadAsync())
-            //{
-            //    XDocument xmlDoc = await Task.Run(() => XDocument.Load(xlmstream));
-            //    XElement ele = xmlDoc.Element("author");
-            //    string text = ele.Value;
-            //    ListViewXml.ItemsSource = ele.Value;
-            //}
 
-        }         
-
+        }            //Klar ( måste lägga till filepicker)
 
         private async void btnTxt_Click(object sender, RoutedEventArgs e)
         {                
@@ -153,12 +168,14 @@ namespace ReadFileUwp
 
         private void btnCreateTxt_Click(object sender, RoutedEventArgs e)
         {
+
             CreateTxtFileAsync().GetAwaiter();
             WriteTxtFileAsync().GetAwaiter();
-        }
+        }           //Klar
 
         private void btnCreateJson_Click(object sender, RoutedEventArgs e)
         {
+
             //try
             //{
             //    Persons persons = new Persons();
@@ -185,7 +202,7 @@ namespace ReadFileUwp
 
             storageFolder = KnownFolders.DocumentsLibrary;
             await storageFolder.CreateFileAsync("textxml.xml", CreationCollisionOption.ReplaceExisting);
-
+            
             try
             {
                 Persons persons = new Persons();
