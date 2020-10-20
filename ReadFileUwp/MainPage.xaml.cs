@@ -124,20 +124,23 @@ namespace ReadFileUwp
 
         private async void btnXml_Click(object sender, RoutedEventArgs e)
         {
-            FileOpenPicker Xml = new FileOpenPicker();
-            Xml.ViewMode = PickerViewMode.Thumbnail;
-            Xml.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            Xml.FileTypeFilter.Add(".xml");
 
-            StorageFile file = await Xml.PickSingleFileAsync();
 
-            using (var xlmstream = await file.OpenStreamForReadAsync())
-            {
-                XDocument xmlDoc = await Task.Run(() => XDocument.Load(xlmstream));
-                XElement ele = xmlDoc.Element("author");
-                string text = ele.Value;
-                ListViewXml.ItemsSource = ele.Value;
-            }
+
+            //FileOpenPicker Xml = new FileOpenPicker();
+            //Xml.ViewMode = PickerViewMode.Thumbnail;
+            //Xml.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            //Xml.FileTypeFilter.Add(".xml");
+
+            //StorageFile file = await Xml.PickSingleFileAsync();
+
+            //using (var xlmstream = await file.OpenStreamForReadAsync())
+            //{
+            //    XDocument xmlDoc = await Task.Run(() => XDocument.Load(xlmstream));
+            //    XElement ele = xmlDoc.Element("author");
+            //    string text = ele.Value;
+            //    ListViewXml.ItemsSource = ele.Value;
+            //}
 
         }         
 
@@ -183,7 +186,6 @@ namespace ReadFileUwp
             storageFolder = KnownFolders.DocumentsLibrary;
             await storageFolder.CreateFileAsync("textxml.xml", CreationCollisionOption.ReplaceExisting);
 
-
             try
             {
                 Persons persons = new Persons();
@@ -192,14 +194,12 @@ namespace ReadFileUwp
                 persons.Age = Convert.ToInt32(textBoxAge.Text);
                 persons.City = textBoxCity.Text;
 
-               
-
-                //SaveXml.savedata(persons, "textxml.xml");                
+                SaveXml.savedata(persons, "textxml.xml");
             }
             catch (Exception)
             {
-                
-                
+
+
             }
 
         }

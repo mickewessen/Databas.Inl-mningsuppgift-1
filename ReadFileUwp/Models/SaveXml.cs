@@ -18,4 +18,5 @@ namespace ReadFileUwp.Models
             writer.Close();
         }
     }
+
 }
