@@ -130,6 +130,9 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Persons.cs" />
+    <Compile Include="Models\SaveJson.cs" />
+    <Compile Include="Models\SaveXml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="utilities\CsvParse.cs" />
   </ItemGroup>
@@ -167,12 +170,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharedLibraries\SharedLibraries.csproj">
-      <Project>{87144d6f-8867-4303-9edb-dd7a3e1b8cb1}</Project>
-      <Name>SharedLibraries</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="snippets\converterBoolean.snippet" />
     <None Include="snippets\converterStringFormat.snippet" />
     <None Include="snippets\csvReader.snippet" />
@@ -183,6 +180,12 @@
     <None Include="snippets\notifyInterface.snippet" />
     <None Include="snippets\notifyO.snippet" />
     <None Include="snippets\notifyProp.snippet" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharedLibraries\SharedLibraries.csproj">
+      <Project>{87144d6f-8867-4303-9edb-dd7a3e1b8cb1}</Project>
+      <Name>SharedLibraries</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

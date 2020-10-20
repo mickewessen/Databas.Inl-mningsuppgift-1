@@ -20,6 +20,9 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Xml;
+using System.Xml.Serialization;
+using System.Xml.Linq;
+using ReadFileUwp.Models;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -31,7 +34,6 @@ namespace ReadFileUwp
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        StorageFile storageFile;
         StorageFolder storageFolder;
         private ObservableCollection<string> CsvRows = new ObservableCollection<string>();
 
@@ -63,13 +65,19 @@ namespace ReadFileUwp
         }
         private async Task WriteJsonFileAsync()
         {
-            var content = (textBoxFirstName.Text, textBoxLastName.Text, textBoxAge.Text, textBoxCity.Text);
+            Persons persons = new Persons();
+            var content = (
+                persons.FirstName = textBoxFirstName.Text,
+                persons.LastName = textBoxLastName.Text,
+                persons.Age = Convert.ToInt32(textBoxAge.Text),
+                persons.City= textBoxCity.Text);
             StorageFile file = await storageFolder.GetFileAsync("micke.json");
             await FileIO.WriteTextAsync(file, JsonConvert.SerializeObject(content));
 
             ListViewJson.ItemsSource = content;
 
         }
+
 
         private async void btnJson_Click(object sender, RoutedEventArgs e)
         {
@@ -120,26 +128,23 @@ namespace ReadFileUwp
             Xml.ViewMode = PickerViewMode.Thumbnail;
             Xml.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
             Xml.FileTypeFilter.Add(".xml");
+
             StorageFile file = await Xml.PickSingleFileAsync();
-            string text = await FileIO.ReadTextAsync(file);
 
-            ListViewXml.ItemsSource = text;
+            using (var xlmstream = await file.OpenStreamForReadAsync())
+            {
+                XDocument xmlDoc = await Task.Run(() => XDocument.Load(xlmstream));
+                XElement ele = xmlDoc.Element("author");
+                string text = ele.Value;
+                ListViewXml.ItemsSource = ele.Value;
+            }
 
-        }           
+        }         
 
 
         private async void btnTxt_Click(object sender, RoutedEventArgs e)
-        {
-            FileOpenPicker txt = new FileOpenPicker();
-            txt.ViewMode = PickerViewMode.Thumbnail;
-            txt.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            txt.FileTypeFilter.Add(".txt");
-            StorageFile file = await txt.PickSingleFileAsync();
-            string text = await FileIO.ReadTextAsync(file);
+        {                
 
-            //Convert.ToString(text);
-
-            //ListViewTxt.ItemsSource = text;
         }           
 
 
@@ -151,12 +156,52 @@ namespace ReadFileUwp
 
         private void btnCreateJson_Click(object sender, RoutedEventArgs e)
         {
+            //try
+            //{
+            //    Persons persons = new Persons();
+            //    persons.FirstName = textBoxFirstName.Text;
+            //    persons.LastName = textBoxLastName.Text;
+            //    persons.Age = Convert.ToInt32(textBoxAge.Text);
+            //    persons.City = textBoxCity.Text;
+            //    SaveJson.savedata(persons, "testjson.json");
+            //}
+            //catch (Exception)
+            //{
+
+
+            //}
+
+
+
             CreateJsonFileAsync().GetAwaiter();
             WriteJsonFileAsync().GetAwaiter();
         }
 
-        private void btnCreateXml_Click(object sender, RoutedEventArgs e)
+        private async void btnCreateXml_Click(object sender, RoutedEventArgs e)
         {
+
+            storageFolder = KnownFolders.DocumentsLibrary;
+            await storageFolder.CreateFileAsync("textxml.xml", CreationCollisionOption.ReplaceExisting);
+
+
+            try
+            {
+                Persons persons = new Persons();
+                persons.FirstName = textBoxFirstName.Text;
+                persons.LastName = textBoxLastName.Text;
+                persons.Age = Convert.ToInt32(textBoxAge.Text);
+                persons.City = textBoxCity.Text;
+
+               
+
+                //SaveXml.savedata(persons, "textxml.xml");                
+            }
+            catch (Exception)
+            {
+                
+                
+            }
+
         }
 
         private void btnCreateCsv_Click(object sender, RoutedEventArgs e)

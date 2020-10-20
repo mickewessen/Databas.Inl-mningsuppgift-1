@@ -32,6 +32,7 @@
             </ListView>
             <ListView x:Name="ListViewTxt" Grid.Column="1" Margin="15,70,15,15">
             </ListView>
+
         </StackPanel>      
 
         <Button x:Name="btnJson" Content="Read .json" Margin="94,504,0,0" VerticalAlignment="Top" Height="47" Width="151" FontSize="24" FontWeight="Bold" Click="btnJson_Click"/>
