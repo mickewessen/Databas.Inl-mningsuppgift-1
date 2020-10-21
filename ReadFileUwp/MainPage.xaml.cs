@@ -62,7 +62,32 @@ namespace ReadFileUwp
             await FileIO.WriteTextAsync(file, Convert.ToString(content)); 
 
         }
+        private async Task CreateXmlFileAsync()
+        {
+            storageFolder = KnownFolders.DocumentsLibrary;
+            await storageFolder.CreateFileAsync("textxml.xml", CreationCollisionOption.ReplaceExisting);
 
+        }
+        private async Task WriteXmlFileAsync()
+        {
+            var content = (
+                textBoxFirstName.Text,
+                textBoxLastName.Text,
+                textBoxAge.Text,
+                textBoxCity.Text
+                );
+            StorageFile file = await storageFolder.GetFileAsync("textxml.xml");
+            await FileIO.WriteTextAsync(file, Convert.ToString(content));
+
+            //Persons persons = new Persons();
+            //persons.FirstName = textBoxFirstName.Text;
+            //persons.LastName = textBoxLastName.Text;
+            //persons.Age = Convert.ToInt32(textBoxAge.Text);
+            //persons.City = textBoxCity.Text;
+
+            //SaveXml.savedata(persons, "textxml.xml");
+
+        }
         private async Task CreateJsonFileAsync()
         {
             storageFolder = KnownFolders.DocumentsLibrary;
@@ -130,12 +155,12 @@ namespace ReadFileUwp
 
         private async void btnXml_Click(object sender, RoutedEventArgs e)
         {
-            FileOpenPicker Xml = new FileOpenPicker();
-            Xml.ViewMode = PickerViewMode.Thumbnail;
-            Xml.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            Xml.FileTypeFilter.Add(".xml");
+            //FileOpenPicker Xml = new FileOpenPicker();
+            //Xml.ViewMode = PickerViewMode.Thumbnail;
+            //Xml.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            //Xml.FileTypeFilter.Add(".xml");
 
-            StorageFile file = await Xml.PickSingleFileAsync();
+            //StorageFile file = await Xml.PickSingleFileAsync();
 
             string XMLFilePath = Path.Combine(Package.Current.InstalledLocation.Path, "person.xml");
             XDocument loadedData = XDocument.Load(XMLFilePath);
@@ -197,27 +222,10 @@ namespace ReadFileUwp
             WriteJsonFileAsync().GetAwaiter();
         }
 
-        private async void btnCreateXml_Click(object sender, RoutedEventArgs e)
+        private void btnCreateXml_Click(object sender, RoutedEventArgs e)
         {
-
-            storageFolder = KnownFolders.DocumentsLibrary;
-            await storageFolder.CreateFileAsync("textxml.xml", CreationCollisionOption.ReplaceExisting);
-            
-            try
-            {
-                Persons persons = new Persons();
-                persons.FirstName = textBoxFirstName.Text;
-                persons.LastName = textBoxLastName.Text;
-                persons.Age = Convert.ToInt32(textBoxAge.Text);
-                persons.City = textBoxCity.Text;
-
-                SaveXml.savedata(persons, "textxml.xml");
-            }
-            catch (Exception)
-            {
-
-
-            }
+            CreateXmlFileAsync().GetAwaiter();
+            WriteXmlFileAsync().GetAwaiter();
 
         }
 
