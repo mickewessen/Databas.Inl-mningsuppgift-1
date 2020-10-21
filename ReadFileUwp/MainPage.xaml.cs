@@ -161,35 +161,26 @@ namespace ReadFileUwp
             //Xml.FileTypeFilter.Add(".xml");
 
             //StorageFile file = await Xml.PickSingleFileAsync();
+            //var content = await FileIO.ReadTextAsync(file);
 
             string XMLFilePath = Path.Combine(Package.Current.InstalledLocation.Path, "person.xml");
-            XDocument loadedData = XDocument.Load(XMLFilePath);
-            var data = from query in loadedData.Descendants("person")
-                       select new Person
-                       {
-                           FirstName = (string)query.Element("FirstName"),
-                           LastName = (string)query.Element("LastName"),
-                           Age = (int)query.Element("Age"),
-                           City = (string)query.Element("City"),
-                       };
+            XDocument xmldata= XDocument.Load(XMLFilePath);
+            var data = from query in xmldata.Descendants("person")
+            select new Person
+            {
+                  FirstName = (string)query.Element("FirstName"),
+                  LastName = (string)query.Element("LastName"),
+                  Age = (int)query.Element("Age"),
+                  City = (string)query.Element("City"),
+            };
             ListViewXml.ItemsSource = data;
+        }            
 
 
-            //FileOpenPicker Xml = new FileOpenPicker();
-            //Xml.ViewMode = PickerViewMode.Thumbnail;
-            //Xml.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            //Xml.FileTypeFilter.Add(".xml");
-
-            //StorageFile file = await Xml.PickSingleFileAsync();
-
-
-        }            //Klar ( måste lägga till filepicker)
-
-        private async void btnTxt_Click(object sender, RoutedEventArgs e)
+        private void btnTxt_Click(object sender, RoutedEventArgs e)
         {                
 
         }           
-
 
         private void btnCreateTxt_Click(object sender, RoutedEventArgs e)
         {
