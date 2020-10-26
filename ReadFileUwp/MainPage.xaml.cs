@@ -155,25 +155,26 @@ namespace ReadFileUwp
 
         private async void btnXml_Click(object sender, RoutedEventArgs e)
         {
-            //FileOpenPicker Xml = new FileOpenPicker();
-            //Xml.ViewMode = PickerViewMode.Thumbnail;
-            //Xml.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            //Xml.FileTypeFilter.Add(".xml");
+            FileOpenPicker Xml = new FileOpenPicker();
+            Xml.ViewMode = PickerViewMode.Thumbnail;
+            Xml.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            Xml.FileTypeFilter.Add(".xml");
+            StorageFile file = await Xml.PickSingleFileAsync();
 
-            //StorageFile file = await Xml.PickSingleFileAsync();
-            //var content = await FileIO.ReadTextAsync(file);
-
-            string XMLFilePath = Path.Combine(Package.Current.InstalledLocation.Path, "person.xml");
-            XDocument xmldata= XDocument.Load(XMLFilePath);
-            var data = from query in xmldata.Descendants("person")
-            select new Person
+            using (var stream = await file.OpenStreamForReadAsync())
             {
-                  FirstName = (string)query.Element("FirstName"),
-                  LastName = (string)query.Element("LastName"),
-                  Age = (int)query.Element("Age"),
-                  City = (string)query.Element("City"),
-            };
-            ListViewXml.ItemsSource = data;
+                XDocument xmldata = XDocument.Load(stream);
+                var data = from query in xmldata.Descendants("person")
+                           select new Person
+                           {
+                               FirstName = (string)query.Element("FirstName"),
+                               LastName = (string)query.Element("LastName"),
+                               Age = (int)query.Element("Age"),
+                               City = (string)query.Element("City"),
+                           };
+
+                ListViewXml.ItemsSource = data;
+            }
         }            
 
 

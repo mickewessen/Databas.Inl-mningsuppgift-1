@@ -6,4 +6,10 @@
     <Age>34</Age>
     <City>Kumla</City>
   </person>
+  <person>
+    <FirstName>Samuel</FirstName>
+    <LastName>Wessén</LastName>
+    <Age>34</Age>
+    <City>Kumla</City>
+  </person>
 </students>
