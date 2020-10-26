@@ -130,6 +130,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\JsonService.cs" />
     <Compile Include="Models\Persons.cs" />
     <Compile Include="Models\SaveJson.cs" />
     <Compile Include="Models\SaveXml.cs" />
@@ -142,7 +143,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="person.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -181,12 +181,6 @@
     <None Include="snippets\notifyInterface.snippet" />
     <None Include="snippets\notifyO.snippet" />
     <None Include="snippets\notifyProp.snippet" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SharedLibraries\SharedLibraries.csproj">
-      <Project>{87144d6f-8867-4303-9edb-dd7a3e1b8cb1}</Project>
-      <Name>SharedLibraries</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />

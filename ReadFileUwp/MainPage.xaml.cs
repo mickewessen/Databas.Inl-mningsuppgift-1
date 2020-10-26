@@ -120,7 +120,7 @@ namespace ReadFileUwp
 
             StorageFile file = await json.PickSingleFileAsync();
             string text = await FileIO.ReadTextAsync(file);
-            List<Person> persons = JsonConvert.DeserializeObject<List<Person>>(text);
+            List<Persons> persons = JsonConvert.DeserializeObject<List<Persons>>(text);
             ListViewJson.ItemsSource = persons;
 
         }           //Klar
@@ -165,7 +165,7 @@ namespace ReadFileUwp
             {
                 XDocument xmldata = XDocument.Load(stream);
                 var data = from query in xmldata.Descendants("person")
-                           select new Person
+                           select new Persons
                            {
                                FirstName = (string)query.Element("FirstName"),
                                LastName = (string)query.Element("LastName"),
@@ -175,7 +175,7 @@ namespace ReadFileUwp
 
                 ListViewXml.ItemsSource = data;
             }
-        }            
+        }                        //Klar
 
 
         private void btnTxt_Click(object sender, RoutedEventArgs e)
