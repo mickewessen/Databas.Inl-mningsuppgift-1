@@ -41,6 +41,16 @@
                 </ListView.ItemTemplate>
             </ListView>
             <ListView x:Name="ListViewTxt" Grid.Column="1" Margin="15,70,15,15">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding FirstName}" Margin="10"/>
+                            <TextBlock Text="{Binding LastName}" Margin="10"/>
+                            <TextBlock Text="{Binding Age}" Margin="10"/>
+                            <TextBlock Text="{Binding City}" Margin="10"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
 
         </StackPanel>      
@@ -56,7 +66,8 @@
         <TextBox x:Name="textBoxFirstName" HorizontalAlignment="Left" Margin="94,70,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="331" PlaceholderText="Firstname"/>
         <TextBox x:Name="textBoxLastName" HorizontalAlignment="Left" Margin="94,113,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="331" PlaceholderText="Lastname"/>
         <TextBox x:Name="textBoxAge" HorizontalAlignment="Left" Margin="94,156,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="88" PlaceholderText="Age"/>
-        <TextBox x:Name="textBoxCity" HorizontalAlignment="Left" Margin="94,199,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="331" PlaceholderText="City"/>    
+        <TextBox x:Name="textBoxCity" HorizontalAlignment="Left" Margin="94,199,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="331" PlaceholderText="City"/>
+        <TextBlock x:Name="textboxoutput" HorizontalAlignment="Left" Margin="384,809,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
