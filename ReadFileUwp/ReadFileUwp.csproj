@@ -130,10 +130,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\JsonService.cs" />
     <Compile Include="Models\Persons.cs" />
-    <Compile Include="Models\SaveJson.cs" />
-    <Compile Include="Models\SaveXml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="utilities\CsvParse.cs" />
   </ItemGroup>
